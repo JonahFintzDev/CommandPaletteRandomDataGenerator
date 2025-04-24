@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "CommandPaletteRandomDataGenerator (Package)": {
+      "commandName": "MsixPackage",
+      "doNotLaunchApp": true
+    },
+    "CommandPaletteRandomDataGenerator (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
