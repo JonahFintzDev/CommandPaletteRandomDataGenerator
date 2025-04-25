@@ -14,7 +14,7 @@ public partial class CommandPaletteRandomDataGeneratorCommandsProvider : Command
     public CommandPaletteRandomDataGeneratorCommandsProvider()
     {
         DisplayName = "Random Data Generator";
-        Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
+        Icon = IconHelpers.FromRelativePath("Assets\\ShuffleIcon.png");
         _commands = [
             new CommandItem(new CommandPaletteRandomDataGeneratorPage()) { Title = DisplayName },
         ];

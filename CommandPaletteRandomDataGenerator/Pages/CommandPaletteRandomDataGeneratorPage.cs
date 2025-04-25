@@ -15,7 +15,7 @@ internal sealed partial class CommandPaletteRandomDataGeneratorPage : DynamicLis
 {
     public CommandPaletteRandomDataGeneratorPage()
     {
-        Icon = new IconInfo("\xE897");
+        Icon = IconHelpers.FromRelativePath("Assets\\ShuffleIcon.png");
         Title = "Random Data";
         Name = "Open";
     }
@@ -34,6 +34,14 @@ internal sealed partial class CommandPaletteRandomDataGeneratorPage : DynamicLis
             chars += "!@#$%^&*()_+[]{}|;:,.<>?";
         }
 
+        var random = new Random();
+        return new string(Enumerable.Repeat(chars, length)
+            .Select(s => s[random.Next(s.Length)]).ToArray());
+    }
+
+    private static string GetRandomNumber(int length)
+    {
+        string chars = "0123456789";
         var random = new Random();
         return new string(Enumerable.Repeat(chars, length)
             .Select(s => s[random.Next(s.Length)]).ToArray());
@@ -66,6 +74,10 @@ internal sealed partial class CommandPaletteRandomDataGeneratorPage : DynamicLis
                 new ListItem(new TextInputCommand(GetRandomString(32, false))) { Title = "Random String (32)" },
                 // random 32 char string with special chars
                 new ListItem(new TextInputCommand(GetRandomString(32, true))) { Title = "Random String (32) with special chars" },
+                // random 16 char number
+                new ListItem(new TextInputCommand(GetRandomNumber(16))) { Title = "Random Number (16)" },
+                // random 32 char number
+                new ListItem(new TextInputCommand(GetRandomNumber(32))) { Title = "Random Number (32)" },
                 // uuid
                 new ListItem(new TextInputCommand(System.Guid.NewGuid().ToString())) { Title = "UUID",  },
                 // sha256

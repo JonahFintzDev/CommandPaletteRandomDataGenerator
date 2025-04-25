@@ -19,7 +19,7 @@ internal sealed partial class TextInputCommand : InvokableCommand
     public TextInputCommand(string textToInput)
     {
         _textToInput = textToInput;
-        Icon = new IconInfo("\xE77F");
+        Icon = IconHelpers.FromRelativePath("Assets\\ShuffleIcon.png");
     }
 
     public override ICommandResult Invoke()
