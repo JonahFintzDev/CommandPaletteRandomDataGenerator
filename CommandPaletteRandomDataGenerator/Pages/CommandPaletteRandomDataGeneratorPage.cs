@@ -96,17 +96,17 @@ internal sealed partial class CommandPaletteRandomDataGeneratorPage : DynamicLis
             var items = new List<ListItem>()
             {
                 // random 16 char string
-                new ListItem(new TextInputCommand(GetRandomString(16, false))) { Title = "Random String (16)" },
+                new ListItem(new TextInputCommand(GetRandomString(16, false))) { Title = "String (16)" },
                 // random 16 char string with special chars
-                new ListItem(new TextInputCommand(GetRandomString(16, true))) { Title = "Random String (16) with special chars" },
+                new ListItem(new TextInputCommand(GetRandomString(16, true))) { Title = "String (16) with special chars" },
                 // random 32 char string
-                new ListItem(new TextInputCommand(GetRandomString(32, false))) { Title = "Random String (32)" },
+                new ListItem(new TextInputCommand(GetRandomString(32, false))) { Title = "String (32)" },
                 // random 32 char string with special chars
-                new ListItem(new TextInputCommand(GetRandomString(32, true))) { Title = "Random String (32) with special chars" },
+                new ListItem(new TextInputCommand(GetRandomString(32, true))) { Title = "String (32) with special chars" },
                 // random 16 char number
-                new ListItem(new TextInputCommand(GetRandomNumber(16))) { Title = "Random Number (16)" },
+                new ListItem(new TextInputCommand(GetRandomNumber(16))) { Title = "Number (16)" },
                 // random 32 char number
-                new ListItem(new TextInputCommand(GetRandomNumber(32))) { Title = "Random Number (32)" },
+                new ListItem(new TextInputCommand(GetRandomNumber(32))) { Title = "Number (32)" },
                 // uuid
                 new ListItem(new TextInputCommand(System.Guid.NewGuid().ToString())) { Title = "UUID",  },
                 // sha256
