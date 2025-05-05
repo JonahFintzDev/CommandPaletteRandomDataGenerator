@@ -5,6 +5,8 @@
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -62,10 +64,37 @@ internal sealed partial class CommandPaletteRandomDataGeneratorPage : DynamicLis
     public override IListItem[] GetItems()
     {
 
-        if (SearchText == null || SearchText.Length == 0)
+        if (int.TryParse(SearchText, out int length))
         {
-            // default view
-            return [
+            // check if length is between 1 and 999
+            if (length > 0 && length < 999)
+            {
+                // return random string of length
+                return [
+                    // random string
+                    new ListItem(new TextInputCommand(GetRandomString(length, false))) { Title = $"Random String ({length})" },
+                        new ListItem(new TextInputCommand(GetRandomString(length, true))) { Title = $"Random String ({length}) with special chars" },
+                        // lorem ipsum
+                        new ListItem(new TextInputCommand(LoremIpsum.GetLoremIpsum(length))) { Title = $"Lorem Ipsum ({length})" }
+                ];
+            }
+            else
+            {
+                // show hint that a number can be entered
+                // use segoe ui emoji for warning
+                return [
+                    new ListItem(new NoOpCommand()) {
+                            Title = "Length must be between 1 and 999",
+                            Subtitle = "e.g. 16, 32, 64",
+                            Icon = new IconInfo("\xE7BA") // warning icon
+                        }
+                ];
+            }
+        }
+        else
+        {
+            var items = new List<ListItem>()
+            {
                 // random 16 char string
                 new ListItem(new TextInputCommand(GetRandomString(16, false))) { Title = "Random String (16)" },
                 // random 16 char string with special chars
@@ -93,49 +122,29 @@ internal sealed partial class CommandPaletteRandomDataGeneratorPage : DynamicLis
                     Subtitle = "e.g. 16, 32, 64",
                     Icon = new IconInfo("\xE946") // info icon
                 }
-            ];
-        }
-        else
-        {
-            // check if search text is a number
-            if (int.TryParse(SearchText, out int length))
+            };
+
+            // filter items based on search text
+            if (SearchText != null && SearchText.Length > 0)
             {
-                // check if length is between 1 and 999
-                if (length > 0 && length < 999)
-                {
-                    // return random string of length
-                    return [
-                        // random string
-                        new ListItem(new TextInputCommand(GetRandomString(length, false))) { Title = $"Random String ({length})" },
-                        new ListItem(new TextInputCommand(GetRandomString(length, true))) { Title = $"Random String ({length}) with special chars" },
-                        // lorem ipsum
-                        new ListItem(new TextInputCommand(LoremIpsum.GetLoremIpsum(length))) { Title = $"Lorem Ipsum ({length})" }
-                    ];
-                }
-                else
-                {
-                    // show hint that a number can be entered
-                    // use segoe ui emoji for warning
-                    return [
-                        new ListItem(new NoOpCommand()) {
-                            Title = "Length must be between 1 and 999",
-                            Subtitle = "e.g. 16, 32, 64",
-                            Icon = new IconInfo("\xE7BA") // warning icon
-                        }
-                    ];
-                }
+                items = items.Where(x => x.Title.ToLower(CultureInfo.InvariantCulture).Contains(SearchText.ToLower(CultureInfo.InvariantCulture))).ToList();
             }
-            else
+
+            if (items.Count == 0)
             {
-                // show hint that a number can be entered
-                return [
-                     new ListItem(new NoOpCommand()) {
+                return new List<ListItem>() {
+                    new ListItem(new NoOpCommand())
+                    {
                         Title = "Enter a number to generate a random string of that length",
                         Subtitle = "e.g. 16, 32, 64",
                         Icon = new IconInfo("\xE946") // info icon
                     }
-                ];
+                }.ToArray();
+            } else
+            {
+                return items.ToArray();
             }
+
         }
     }
 }
