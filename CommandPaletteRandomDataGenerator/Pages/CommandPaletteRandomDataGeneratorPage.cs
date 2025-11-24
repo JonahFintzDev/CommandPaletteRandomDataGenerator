@@ -49,6 +49,32 @@ internal sealed partial class CommandPaletteRandomDataGeneratorPage : DynamicLis
             .Select(s => s[random.Next(s.Length)]).ToArray());
     }
 
+    // New: Generate a random port between 12000 and 65534
+    private static string GetRandomPort()
+    {
+        // RandomNumberGenerator.GetInt32 upper bound is exclusive, so use 65535
+        int port = RandomNumberGenerator.GetInt32(12000, 65535);
+        return port.ToString(CultureInfo.InvariantCulture);
+    }
+
+    // New: Generate a random color in hex format #RRGGBB
+    private static string GetRandomColorHex()
+    {
+        int r = RandomNumberGenerator.GetInt32(0, 256);
+        int g = RandomNumberGenerator.GetInt32(0, 256);
+        int b = RandomNumberGenerator.GetInt32(0, 256);
+        return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", r, g, b);
+    }
+
+    // New: Generate a random RGB color (comma separated)
+    private static string GetRandomColorRgb()
+    {
+        int r = RandomNumberGenerator.GetInt32(0, 256);
+        int g = RandomNumberGenerator.GetInt32(0, 256);
+        int b = RandomNumberGenerator.GetInt32(0, 256);
+        return string.Format(CultureInfo.InvariantCulture, "{0},{1},{2}", r, g, b);
+    }
+
     private static string GetSha256Hash()
     {
         var Hash = SHA256.HashData(Encoding.UTF8.GetBytes(GetRandomString(32, true)));
@@ -104,6 +130,12 @@ internal sealed partial class CommandPaletteRandomDataGeneratorPage : DynamicLis
                 new ListItem(new TextInputCommand(GetRandomNumber(32))) { Title = "Number (32)" },
                 // uuid
                 new ListItem(new TextInputCommand(System.Guid.NewGuid().ToString())) { Title = "UUID",  },
+                // port
+                new ListItem(new TextInputCommand(GetRandomPort())) { Title = "Port (12000-65534)" },
+                // color hex
+                new ListItem(new TextInputCommand(GetRandomColorHex())) { Title = "Color Hex" },
+                // color rgb
+                new ListItem(new TextInputCommand(GetRandomColorRgb())) { Title = "Color RGB (R,G,B)" },
                 // sha256
                 new ListItem(new TextInputCommand(GetSha256Hash())) { Title = "SHA-256" },
                 // sha256
