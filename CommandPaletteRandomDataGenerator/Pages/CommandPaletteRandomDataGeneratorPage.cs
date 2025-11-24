@@ -73,21 +73,16 @@ internal sealed partial class CommandPaletteRandomDataGeneratorPage : DynamicLis
                 return [
                     // random string
                     new ListItem(new TextInputCommand(GetRandomString(length, false))) { Title = $"Random String ({length})" },
-                        new ListItem(new TextInputCommand(GetRandomString(length, true))) { Title = $"Random String ({length}) with special chars" },
-                        // lorem ipsum
-                        new ListItem(new TextInputCommand(LoremIpsum.GetLoremIpsum(length))) { Title = $"Lorem Ipsum ({length})" }
+                    new ListItem(new TextInputCommand(GetRandomString(length, true))) { Title = $"Random String ({length}) with special chars" },
+                    // lorem ipsum
+                    new ListItem(new TextInputCommand(LoremIpsum.GetLoremIpsum(length))) { Title = $"Lorem Ipsum ({length})" }
                 ];
             }
             else
             {
-                // show hint that a number can be entered
-                // use segoe ui emoji for warning
                 return [
-                    new ListItem(new NoOpCommand()) {
-                            Title = "Length must be between 1 and 999",
-                            Subtitle = "e.g. 16, 32, 64",
-                            Icon = new IconInfo("\xE7BA") // warning icon
-                        }
+                    // random string
+                    new ListItem(new TextInputCommand(LoremIpsum.GetLoremIpsum(length))) { Title = $"Lorem Ipsum ({length})" }
                 ];
             }
         }
