@@ -7,7 +7,7 @@
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" IgnorableNamespaces="uap uap3 rescap mp">
 
-  <Identity Name="JonahFintzDEV.CommandPalette-RandomDataGenerator" Publisher="CN=240FD63B-E96D-4F79-A6D2-BFC6E6AD6C10" Version="1.1.0.0" />
+  <Identity Name="JonahFintzDEV.CommandPalette-RandomDataGenerator" Publisher="CN=240FD63B-E96D-4F79-A6D2-BFC6E6AD6C10" Version="1.2.0.0" />
   <!-- When you're ready to publish your extension, you'll need to change the Publisher= to match your own identity -->
 
   <Properties>
