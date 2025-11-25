@@ -29,7 +29,7 @@ internal sealed partial class TextInputCommand : InvokableCommand
             var previousClipboard = Clipboard.GetText();
 
             // wait to ensure the command palette is closed
-            Thread.Sleep(200 + _textToInput.Length);
+            Thread.Sleep(Math.Min(200 + _textToInput.Length, 1000));
 
             // copy and paste the text
             ClipboardHelper.SetText(_textToInput);
